@@ -1,5 +1,6 @@
 package ru.skillbranch.intensive.models
 
+import ru.skillbranch.intensive.utils.Utils
 import java.util.*
 
 data class User(
@@ -22,14 +23,11 @@ data class User(
 
 
     companion object Factory {
-        private var lastId = -1
+        private var lastId: Int = -1
         fun makeUser(fullName:String?): User{
             lastId++
 
-            val parst : List<String>? = fullName?.split(" ")
-
-            val firstName = parst?.getOrNull(0)
-            val lastName = parst?.getOrNull(1)
+            val (firstName, lastName) = Utils.parseFullName(fullName)
 
             return User(id = "$lastId", firstName = firstName, lastName = lastName)
         }
